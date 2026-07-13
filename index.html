@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- v20260707164910 -->
+  <title>Carver Federal Savings Bank - UAR Form</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 20px; color: #252525; }
+  .container { max-width: 1050px; margin: auto; background: #fff; padding: 35px 40px; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+  
+  /* HEADER */
+  .header { display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid #007B85; padding-bottom: 14px; margin-bottom: 6px; flex-wrap: wrap; gap: 10px; }
+  .logo-area { display: flex; align-items: center; gap: 10px; }
+  .logo-text { font-size: 22px; font-weight: bold; color: #007B85; letter-spacing: 1px; }
+  .logo-x { color: #FF5100; font-size: 26px; font-weight: bold; }
+  .header-numbers { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+  .uar-number { font-size: 13px; color: #007B85; font-weight: bold; background: #EDF5F6; padding: 6px 14px; border-radius: 4px; border: 1px solid #007B85; }
+
+
+  h1 { text-align: center; color: #007B85; font-size: 20px; margin: 16px 0 4px; letter-spacing: 0.5px; }
+  .subtitle { text-align: center; font-style: italic; color: #666; font-size: 13px; margin-bottom: 6px; }
+
+  /* NOTICE */
+  .notice-bar { background: #FFF8E7; border: 1px solid #FFB71B; border-radius: 4px; padding: 10px 16px; font-size: 12px; color: #7a5c00; margin-bottom: 16px; line-height: 1.6; }
+  .notice-bar strong { color: #FF5100; }
+
+  /* SECTIONS */
+  .section { background: #007B85; color: white; padding: 9px 14px; border-radius: 4px; margin-top: 22px; font-weight: bold; font-size: 13px; letter-spacing: 0.3px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .full { grid-column: 1 / -1; }
+
+  /* FORM ELEMENTS */
+  label { font-weight: bold; display: block; margin-bottom: 5px; font-size: 13px; color: #252525; }
+  label .req { color: #FF5100; margin-left: 2px; }
+  input[type="text"], input[type="date"], select, textarea {
+    width: 100%; padding: 9px 12px; border: 1px solid #ccc; border-radius: 4px;
+    font-size: 13px; color: #252525; transition: border-color 0.2s;
+    background: #fff; font-family: Arial, sans-serif;
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: #007B85; box-shadow: 0 0 0 2px rgba(0,123,133,0.15); }
+  select:hover, input:hover, textarea:hover { border-color: #007B85; }
+  select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23007B85' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+  select:hover { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23FFB71B' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); }
+  textarea { min-height: 150px; resize: vertical; line-height: 1.6; }
+  .field-hint { font-size: 11px; color: #888; font-style: italic; margin-top: 3px; font-weight: normal; display: block; }
+
+  /* FILE UPLOAD */
+  .upload-section { background: #EDF5F6; border: 2px dashed #007B85; border-radius: 6px; padding: 20px; margin-top: 14px; text-align: center; cursor: pointer; transition: all 0.2s; }
+  .upload-section:hover { background: #d4eef0; border-color: #005f6a; }
+  .upload-section.dragover { background: #c0e5e8; border-color: #003f47; }
+  .upload-icon { font-size: 36px; margin-bottom: 8px; }
+  .upload-title { font-size: 15px; font-weight: bold; color: #007B85; margin-bottom: 4px; }
+  .upload-subtitle { font-size: 12px; color: #555; margin-bottom: 12px; }
+  .upload-btn { background: #007B85; color: white; border: none; padding: 9px 20px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+  .upload-btn:hover { background: #FFB71B; color: #252525; }
+  input[type="file"] { display: none; }
+  .file-list { margin-top: 14px; text-align: left; }
+  .file-item { display: flex; align-items: center; justify-content: space-between; background: white; border: 1px solid #007B85; border-radius: 4px; padding: 8px 12px; margin-bottom: 6px; font-size: 13px; }
+  .file-item-name { display: flex; align-items: center; gap: 8px; color: #252525; }
+  .file-icon { color: #007B85; font-size: 16px; }
+  .file-size { color: #888; font-size: 11px; }
+  .file-remove { background: none; border: none; color: #FF5100; cursor: pointer; font-size: 16px; padding: 0 4px; font-weight: bold; }
+  .file-remove:hover { color: #cc0000; }
+  .file-count { font-size: 12px; color: #007B85; font-weight: bold; margin-top: 8px; }
+
+  /* BSA SECTION */
+  .bsa-section { background: #EDF5F6; border: 1px solid #007B85; border-radius: 6px; padding: 16px; margin-top: 22px; }
+  .bsa-section .section { margin-top: 0; margin-bottom: 14px; }
+  .bsa-note { font-size: 11px; color: #007B85; font-style: italic; margin-bottom: 10px; }
+
+  /* BUTTONS */
+  .button-row { display: flex; justify-content: center; gap: 16px; margin-top: 30px; flex-wrap: wrap; }
+  button { padding: 12px 28px; border-radius: 5px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.2s; letter-spacing: 0.3px; }
+  .btn-submit { background: #007B85; color: white; border: 2px solid #007B85; }
+  .btn-submit:hover { background: #FFB71B; border-color: #FFB71B; color: #252525; }
+  .btn-print { background: white; color: #007B85; border: 2px solid #007B85; }
+  .btn-print:hover { background: #FFB71B; border-color: #FFB71B; color: #252525; }
+  .btn-new { background: white; color: #007B85; border: 2px solid #007B85; }
+  .btn-new:hover { background: #EDF5F6; }
+
+  /* STATUS */
+  .status-bar { display: none; padding: 14px 16px; border-radius: 5px; margin-top: 16px; font-size: 14px; font-weight: bold; text-align: center; line-height: 1.8; }
+  .status-success { background: #EDF5F6; color: #007B85; border: 1px solid #007B85; display: block; }
+  .status-error { background: #fff0f0; color: #cc0000; border: 1px solid #cc0000; display: block; }
+  .status-loading { background: #FFF8E7; color: #856404; border: 1px solid #FFB71B; display: block; }
+
+  /* FOOTER */
+  .required-note { font-size: 11px; color: #666; margin-bottom: 10px; text-align: right; font-style: italic; }
+  .date-row { display: flex; gap: 15px; }
+  .date-row > div { flex: 1; }
+  .footer { margin-top: 24px; font-size: 11px; font-style: italic; border-top: 1px solid #ccc; padding-top: 12px; color: #666; text-align: center; line-height: 1.6; }
+
+  /* PRINT */
+  @media print {
+    body { background: white; padding: 0; }
+    .container { box-shadow: none; border-radius: 0; padding: 20px; }
+    .button-row { display: none; }
+    .status-bar { display: none !important; }
+    .notice-bar { display: none; }
+    .bsa-section { background: white; }
+    .upload-section { border-style: solid; }
+    @page { margin: 0.75in; size: letter portrait; }
+  }
+
+  @media (max-width: 700px) {
+    .grid { grid-template-columns: 1fr; }
+    .full { grid-column: 1; }
+    .date-row { flex-direction: column; }
+    .header { flex-direction: column; gap: 10px; }
+    .header-numbers { align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo-area">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOcAAAAnCAIAAAB7fsjDAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAASdEVYdFNvZnR3YXJlAEdyZWVuc2hvdF5VCAUAABnVSURBVHhe7VwJdFTV+a/aWhcU8ShUpBYoFFFL0SparRvYUhURWreCVdHWpcfWKgIh62QnK0lISMhKIIEk7IRskJCF7CsJSQjZyL4nk5lsM/OW+f/eMm/ezHsTAvI/pz1nfueTM++7373vvnt/77vfd9+NP9LT9H+L6M3ECivk8V/LWiussAgra63434OVtVb872E61tIT7dQVX/L8C2TGCir/LaotltYM6GnKzMyCUHpNP919iir+gExdQqYvJ0s/pUcq9ZROYmkQK2utmBksspZW1VD568iURWTKQl5Sf0kWf6if7DKzlBGdmm6PI/PfZqoI1SFZz1H9uebGglhZa8XMYIG1xASV/ZIJ4XhZRFx4U09OmtuLRTtCFP/NnK+ClG4xtxfEylorZgZ51tLDZWT6YwaqLSKyfses8gLzqm30ujGzKozoxqiOJPLcU0ZLCGID+OxzT3KX2vQV5rUEsbLWipnBgq8dKmDYxtEudQnVmURVfsVfQjKeoLtPm1VByEtW/gtFRrOUhdSF16m+NHqklMx+kdPo0n9jVpERK1+tuB5Y8LXjrWTGrw3kW0y1RFC6cTLvjwbNQiJnjcjdkvRwCZH5O6GUEZC+8mtaO0rrVETZJ4JeV7hZuItRrKy14npgwddSJJP7G6hGlX6s1yrp0Rri/AtGZdU3NKGBMa0ZIXJfE/SM5L9J9yTTFEWNt5Hl/zDq05dTHYkmN+LEylorrgcWWEvT1ECukW0Zj9Mj5aAy2RQsSrMWU13HGWNKS9Y6GHYbFhFwsewGGa0dIovfJ1MXG+wXksWbwX7xXYDhsfFLvb05zS2JlVUZDVdK2tqbBwdHJydRROE/vp8yIEhyUD02qdPx16ZAxQmNdlyjGZuaGhkfHx4b6x0d7VCONg8OXekf6FOpCIriTfV61eSkcnwCxrxMMbX4MgO0BIl2oDeaTSvcfTlBdXRG0OCRe5TKtpER9KRxYLB3VIUn5e4yQ6CpXqVSVvpVKo2FMZFiSqvrUiqVk5P8tQQToifCCPBaOehIZnwwkoI9JnF0YgIP1j82hpEXetijHO1Ujo6Ibjo6NQWDrlHeppudqXGtli+WwCJrIVTRuwLhqIov9RRBaweZ1EpgYf7b+qluxlJVR2Y9T2Y9S7XFgtx6SkeNlIkdM8Pp3D/ox1v4limqdXh4f2n56r3hDyrcnvIPej0iZmPMgdfCIh/39r/XTnH7Dru5ji5P+gU09A/wPTUFxujFveE/3m4XUVTCq0zRNjyycf/Bx31237HT8dZttrfvsP+1X+DLe/e9GBz2qJffXTsdf+Xps+dCQduIEux/Ozbublsn2PzUxmG2vfNLIfvs0s6avQ9HLtasDotc4Rc4y9YJZvfZO/8+OOwX7l74DZllp5ircF/gtouT+S6ecxxc0CBu/ZDCXUsQf41LeMxnNy4ht22zfcI34JW94bjRci9/dObnLh7+OXmYKv5m10JEYfFr+6LQhx99vxOCzs9xdJnr7D7bwfmOnQ4YwC2Hj2Q2Nll6pTnAJ/wtPhHVt55OkX1tWoeGN8QcXOblj/bxjL/dvae6u4cvkyC5tv7FkLAFrru4AYEs8vDZGBuHZ7c5k4YnRSNcb+/c6fhMQLB3di5XkaTpqJKy1aERP9luh1LM6XJv/3WR+5Pr6jkDKaZjLd2TYtxJQE7Wl8EolVWUOFFrDGSNKbovnRouoykCYS7ZHk9kPcfbMLKILPlQP97MN0vT8ZVVK/0CMb5/TzqW1nClT6WmwHXWfbaPKM/UN7x/8BCmdqVfkEri8zhUdnXfZ6/40Vabj+MTeZUEJEleaGld7OENsyf9Ai/39et0uimttnloKKyo5BG3XbdstcFAN7KuffOhhFswpltt3orcr56cRE/4VgxAt1H9cm/f07v3wPJv8QlwmXHllegnav0jkXmQ3NarnGQ1tyTXXY4uLsVd8E6SeE0pqrqrGxMG44cUbh1KpY4g0CDz9paVz7ZX3Pr9zmeDQtAZ/n7XwqRW9+3J02gNkx2QeyGzqRn3TW9oPFR58c3IGOjn2Ds7pJ+bxofD4XGD8/ye0CmC4LWmAOcudve8GxsHM8iqwJCuURVfJgFWgAutVxe5e8FypX9QWUcXfDn0GDosNR8dSuQawasyoB7jqgjAFOBlQ59D8gubBoemX3ymY61eO0IVbzKSL/tlvXYUevKKn1GZspie6hGq0MQEVfOdqJSVwo20dpg3oOmDZRWYdUx2VHEpX1ES0bYrlYvcvf8QGs5fmwKmXudzf7KdoctcJ1e8rHyBBANjY88FhsDsT+FRIxMm6+C+omJuEDfHHcZlXstV7jV4K2q/xeb0+uGJSRAd7hZzicv6vn78Rq2QCwWcgRlOXqr7074ooYeLXT1hvCowmLsUkNPUCtai6MWQcOkLYwnxFVWogsWkvL2DV7HAID/DPjXkfFMzr5UgrqIKRIENpqNlQH5N41DW3sm1Blnu5Tc8McEXyME1I1P2vi5nGT0kSDJWUzrdW1Gxs+0UJ2pqedW0mJa1ePq+dEPAupBMW0a2RCIAoCc6kG/xyuyXqN501piiRquJ4s1Ge0jGE+QlB0o3wbdG08cv1d7yvc2dNg5+OXmckhEJa2G5Lir286Rj/LUpMGprI6LhYO6wccAoHCyv4AskUGk0iApg87qEteMa7TyFG4rg/4bHx8GVN6NicTlP4a6elHfwQHln1yOunp8fOc5dIiqdYzcda8s6Oj+KTxQ8x9P+QTBGlMJdCtAQxCshTD/nObmVdZhQcBqculSLKlLWApkNV7il49OEI7zKFAgePoxP8D6fM9/ZA2b/PHqCL5BDv0oNLwOnjlcL8te4w0rLQxRVVIJgYETCbMe0s7gRxIy1ao3mi6PHF7h6HiivxLzz2mlxDdYiQiXFO7U5a+gpZFok1ZnAJF5F71Gjl1gzLO0HyCyzza/HyPbDNGH8kNatUr3Izg2mrVetZpQSvgpwyDjnmJrBX5gir6V1dWg4cog/7otCa495+VlaULCMrgmLgM36qP3SYGNTbDw3jkVX23BZ3NaOmYYg4OYMpAgtLH7A0VVY4JoGB+c6uqIFS6ztValT6uqFyVgbHg3jP4ZHcZcC4Iy/O30GRXB+p+su89prAdREFVnWtg0OcaHLn2NieZUp2oaVWO6xpn13Khlms2wdp/Gg8IVwEAg8ng0IhvFPttmC8Qh7+GJTxJaWwWtKWeuQloG6EDFrkZ9sik/4hZtXVmMTr5oBrsVaiFZJnl0hcJGqd2aiWIrSXXHTU1oYUJphXZ0LIf6Em7qYzF1Dj/GBrCCIr/HwiCYd088yGp6y8oRjPDNjYw4o39kf55mVDabGlJbfxvKstE3eP2l1uj+wzN4QfUA1peG1Bnxz/BQ3jhxrgVdYx7zCN0B2mcYdkVVsPXWGv2ZYOzQNa5EFj2lMbvpG1H4Yr4uI4a8NQMuOKekownyfmTFrsxubUEWWtRhqFEGC84t4lSm2nTrzz2Mn4eNL2jtmsdF2bHklXyYBxvwuG4fPj57oHlUt3eXLtfzd6ZQJuTQ/qaoaGa2UtTuSU7mKAmtHp6beO3horsLtZK3FxEsW1/a1VFskmblKxMgl9FChwYAiB/J0ZlEBftfs0E/JHLL58ugJdBo8y25uMfDVImstoaKzC6tJeUcnfiOsXOLpgzbtUzNkKT49azewHLpnp6OS3ZwCDpZXcpmswGMxCq+2wSsUtbXz19dibXRxSWxJGX/BgmPtxkhz1sJvYY1G0UMK92nydDNYYi2CH/hRFCGmBzN4rQhIeR928eBej3712MvsAggCTbPncO8Oe7AWb9fl/gHko7BHQO+dnSsddkus/c8JJneEcKzF8vJZ0rHFHj5IvjmDmWM61jLfwy5+K3MOpvAdmk3LdB2JOrNPuOnLNH2ZNMl8fZAKlnJ0Gu52cAwr7I1QFmO0KT7xjYhoDB8usXK9c4BZ5eEjMfqcjRgCaxGKme3/jU1O3skmUv8+cZpXsXEqsg0ovzuZzKsMwK1X7w3/c2yceDd0GtaifwhLmIxTBEusxYNwVNgQHcs92kwgy1q4zy+OnsCChgYbB4d4rSmc0s8t8/bHTfEbN7NNScd6tdTTt66vnzOQYr6TK8da2COUesDRBbf+6Q77pOpLvIUBYO19Ds7SPWAxaxFbrI2IgfcpkPMO14RF1lKT3WTV12JGGiV9Od0UMFVtb64vepccMmwLSITQ6e6yZVaiObZO7Fhxcn2AH1rk7pUpioGiS8vR5v32zvmtV3mVCGLWipczeKBvT6dgal8NjegU7ZJiyrckHIH9s5ItnrKOLuRt6ZdNHIPA2i2HkxKqLkLiyioi8guDzmevj4j58TZbZBi8KQtZ1o5OToJG4M3zwWEDY7zXnwk41mJxcDiTFpFfEJKTa3M65WEXT6wVb0Qf6B2V3/3tVCpX+gVGlBhfp4LWq3AlP95uZ9ZbMR5WuHGs5S7PNjYtwI1YFh6prhHHuGDtz5w9pFmEwNpPE4+uDWcmBWvvxLQ7ypYgz1pS3aQr2GjCyLSlxIXXjZfiL16QtCW6hgB6qtesHbFoNRpmk3mrzQKF+42xFu+5T3bu80F7xZ+1kBjNYrdv7NNkUjeBtSt9A7AgNnZ0FDQ126VlvBoa/oCT666s7JahYd7UgBOX6sDmu20d0+qN8SVmZXty6qsh+5A98CoWAms3x8aDN5CgrGzfjLP/PnZyvsId+mOX6nhTFhxrH93le/pSbUNnZ0V7uyL9LLvBbrszJb1HpebtZgYRa1MPlJZHFhR5ZZxD9nn7Dvt77BRY9wPy8nlTEQ5XXsR6MiZ6h7Uk+UwA4+nfipJP3QAz1gKnausQz6AW3pPcllZeOwPWPurldw+7ys22VwTnF/LF1wM51upUZPnfxaQksn5HDFeR6mYqQzi+KJJzT5HdpxDjQoipYT3JpGhS0Wm1P2U3qu7Z6QBXfgOsRdT1TEBwSEGRSqMRy2eJx5ixc/aQZrUCa7GWzbF3vt/BeY6DM7cz+urecNm1eFKjvZ/dEfvkcBKvYjfkESmWd3bx1wZMEyGMTE79yssvqbqGv2bBsRYcRU8YcXRFPg7NfFfPcdO8bSbgWHvrNttCEWkAxJS/9g+C80bpuwcPgZR8AQvELd+eOoPVRiyhBUVMU9/v7GeCNxnMV7hhFaJMR3hfUQmTBmCtc3DpMyxN12QtMumwgiIsRPiNTsJVzzwo4iDDWqozSRzLMttbI5UUoSM7E8mc1YKeKUpdSlZ8Sakbmc1aUkdcjSGyX6LqFGYNcgITLnO6fbsdFqkbYO2JmlqM0VJv/8f9g8SyyNOXm6FDkgVOYO0HBw+D33DSCObWRTP7spjshMoq3s4UXtm5MLjP1klwfpgJ+CGz6Qemz8ZsUtL2FRbzFyw41m6IjEEugncM/3597CQ6f9s229DCYjZovA7wrN1uZ8ZaAKnnb3czu1R32jhElpQJLVd3dd+90+GXbrtWePuLZfkuH45G/xHtkIiBuPaThKNmrEWzCFJnsYHfMi8/7svLNVnrnnkeFYMLimazi+S9dk6Hq6pJ6jqeXY61ecYDXLryL2jNEKW+TJR8aDxxK0je6/T4VVQhJ3uJso/J9GWMMnWJfqhA3KAgHxw8hF7ihT7JrJvXx1qCIBd7+v714OHavn6ksWKp7x9Yxe4jrgrYY7ZjJRvXto2M3MXu9fxM4d4j931SPaWB84CBU8Y5TrMmNCKypFTa3elZC781aNid4CCNa0vaO37OfjB7Lmhv9w1FCLKsRVcRHnCrygfMs/Ph4yshYQhIant6WwaHzARjC+O5CjfZQOWeHfZS1gLgn+/5XKwYt3zPbMP3qdUzYS0uUVH4TvSgk1u+5BGmgQxrjdtYmU9rWw8RNVsJjo5SYQ6MH0EVeqyRMpz7ZqTkI1qnErfJSWx5BfdCf3nkOMEePJg5EqqqMTQYEf7aFM5nMzFD99kp8pg9NSM0Wu1r+yJxR7NsbMeZtNu2MRu925NTzEJVDp8mHEWtxZ4+SJVymlsRCDbL5eNNg4MPstm0LGs5wMG3jWBtYSBlLUFS3IYgOuNrOFAyQ5y/0oiKsqwFjlVfupt9ORELIQaABgnrrd/b+ObkcQZmSLpYjTgK0UuU6W4dgBm+a4f9R4eTpDEYMKUjvjrKrBi419sxB8IKi2VZ+80JfnecYy2gJUhQ+Ta24t22TkVt7TMMFWRYS2QaD74QKaZZFzRpS3UF7xgvs15gj31R5NVoQUlmPEH1nDFrFtI4MPiYtz+6uNTT54qFw1yywKBjgUbsb/ZVVkBmY9MDjq54frvUDHGuNq7VwrXgjixrTXasfsN+XJ3v7JHXIrP5cORizSxbJ8w6fqyLit166ozsgF4ZGJgz7TkEIK+5dYMhy+E+2643/coATnOnWBBzszvZM0VqbR1qSeNaDvEVVXfssIfBu7HxGAdmR+zIcRi3WDigU9/Xv4z9gvDewUNmH0cmNBrkJJviEmTfcECt0fzzyHFksZBfevr8zNldylq4KjQOEVgLTOh0jAdhibvYwydXbi6kkIsQmoKM/DMVIv9tarxNP95E5b5qVBZtRsyqp0nxtgNxYZ1ZsxAAPea6/sUR+TMGYnx98nQnu32T39qGRWTrqRROL0WPWr2SZeHT/kHifAKj+crecOg3xhzAb17LIvFiNdcTDJZOcnK0ZWj4cW9/rHq/3xM6T+HebeEMId69+9iozjcrm1eZgmRd6eeJ/GGAJ/0CYbxW8m3sUm8vEn8ULfHwaZ/xecVklrWy38bwju04w3yLQsTMfQtAKLXU03dNWARvIQEY+TYb8T/k7N5gephmQM2cQ8CbD+rzKgngFN5l984hsqz9RxKTNEPErAWQZH+WyKxskEdcdyH94AssQ4a1tGaQKP9CvLeFrEuXv4Fs2Udr2cMDFEm1hAmlZPqj7PFwih4uNPn22xotbpYRPY0ufpJwBCsRFnREjQMWMlYw718nT68Nj+ISoK+OnQCBpgl9MElb2J0EpGtnRJ8Hu0dV3O79GxExZvveqOKWeZ479AR/bBYAYCn8hB1KLHx/TzzKayWo7OjkIjPXdD4CFgOUPVhRhej5xEVmJwEx9zw2CH7KL5AzEIDOIAy9x9YJt1sfFTvDg7aRxSVoTcpadD6l/vJ8Z2Zb6pmAYG53b1dWNsY8tED+Ay8H3+w8VGEe55wJsep7+6B8/+AhBAO8Sg51ff0r2ddSlrXvH2CyGsi25FReZQB6uD5qP/w0Sue7eOS2tAqn5GQhw1oIrRmguk5pSr/SFvxFV+NI9Z2lpvrYvS2DjW6UyF8vEJTMXw+u08Q4WfVvozJzFeOYYcwnXrwgvvTJzkX+ePt2u9VhEcl19aRo3SEI4nhNHRwkSqOKmRPfJ2vrudOAZt+ZxECXtyancIOywjdQ2EU6UVN7v4MzlAvdvep6ejmlAMQSwfmFiIYxnSB32uUraIcv0+uP1zAnqhAklEo8mQCf7Dwunntq957YsgpwBbFKWn3DgfJKm5T0dZH759g7I2IbHh9Hy3EVlVigYTxrp8PFrm6+CQOwiOMB8Q4wnQkIPlZTKxtECphiD22hNbyowRcKmgYGlSpVt1KJBGBTfALui6KX94bX9zOfu3KbWx9kX5jPko5hhLkWzIAehuQXwgYy18ntygAfSOCN8jrPbKog5eWWPkvA2JV1dN5r64SFEfkAr2VbxthyXYLgRUJv+TIDBsfGHNPP3rWTcQFIT/fkF0kzPwHyrJ2JUFO95FnhLyIX0o1+zCHGoUK4Xl6ZuphqDsFTs48jFgatQ8OfJRz5hduuB51cEdU9GxiyZl/kc0Eh6PFsO6d5Tm6Pee8enZwKLijCqoE1CwHowy4evw8OS5YcLkm8WAOWP+LqicAXjm2ewg0vA1zXSyFhP0ddhTsni9y9MYuHKqvE1MSvmu4ehJu4BYb1CW9/LKxc8ejExEMuHm9GxpjtAwDgEyb4hT2h6BXXMbGwSuaO6AkeZO2+qMsDgzDGo0HJFeHB8SzSvAeB8oboA2gEFVf4BmxCAiQXSu7NL0KDc+wVoIhR2Ms5dgoMAoJLn/M54xomAU2ovIjAQ+jeb/wC/XMvcO0IKGi9+mJw2CJ3L+6J0ElkIN7nc96IiF4VGLzAxZN5FoUb6r4Ztf/jhKRpDojFlVc+7OKpNBik1jfgJVzg4sHMAvvsEMzFqoA9Zt3A64EcAO8GOvCAo8tyL/9vTiaL/1BHwI2zFkK1hPK7XZC0ZVR3ip7SERVf8BpI0XvwwVLKcgB78PBVXd2na+vgqELzCw+UVSD7yWq4gsxAzR526VOPtQwOtY+MdCr5v/ri0mExhiYmLvf3I52HJQwa+gfgJxAb4AcuhZ0dGCC2G5T7ZAqn2z6izG9uPXu5AZa8lvmA3I0OiFnOAde9ajVaax0aQsd6VWpBekZV0KA1tAMK4kFwOUUQ6BI0reyz4F+uVPo+AARJdY2OlrV35DU1y25cABeampGKyUpuUzOyXnE6hYC+U6kU91B6SACRG56lY0SJ3jJDPaLE5YB6DE1hbM0EvZpmHcCtk2vrhbxNNaVhJ4J5fOHZ4WvRDnNaVQLMBTrAPH5zC2qBynyBCD+ItbR2mCr6i8BRKudlWlVPTXaRaYb/5Uf6cuYArhxlrbDihvGDWMuIsoI8u9JI3NIt+slOsmyLoCHa4vlbWWHFTcIPZi08btdxYyybspjMf4vMecXI2oYA/lZWWHGTcBNYi1iWrHc1PwXGCZQIdq2w4qbiZrCWC3Br7cm0X5mydhFZ9hmtkc8nrLDihnFzWMsIMUH1JJM5a3jKZjxB1bkwJ26tSZgVNxs3j7UmYuWqFf9v0Ov/DzSGQKdZ+B+FAAAAAElFTkSuQmCC" alt="Carver Bank Logo" style="height:55px;width:auto;">
+    </div>
+    <div class="header-numbers">
+      <div class="uar-number" id="uarNumberDisplay">UAR #: Generating...</div>
+    </div>
+  </div>
+
+  <h1>UNUSUAL ACTIVITY REPORT (UAR)</h1>
+  <p class="subtitle">Confidential – BSA/AML Reporting Form</p>
+
+  <!-- NOTICE -->
+  <div class="notice-bar">
+    <strong>⚠️ IMPORTANT:</strong> Do <strong>NOT</strong> alert the customer or any unauthorized party that this activity is being reviewed or that a UAR is being submitted. Submit within <strong>24 hours</strong> of identifying unusual activity. For immediate risks (fraud, elder exploitation, sanctions, structuring), escalate <strong>immediately</strong>. Questions? Contact <strong>BSA_UAR@Carverbank.com</strong>
+  </div>
+
+  <p class="required-note"><span style="color:#FF5100">*</span> Required fields</p>
+
+  <!-- SECTION 1 -->
+  <div class="section">1. REPORTING EMPLOYEE INFORMATION</div>
+  <div class="grid">
+    <div>
+      <label>Employee Name <span class="req">*</span></label>
+      <input type="text" id="employeeName" placeholder="Full legal name" required>
+    </div>
+    <div>
+      <label>Your Email <span class="req">*</span></label>
+      <input type="text" id="employeeEmail" placeholder="your.email@carverbank.com" required>
+    </div>
+    <div>
+      <label>Department <span class="req">*</span></label>
+      <select id="department" required>
+        <option value="">Select Department</option>
+        <option>BSA/AML</option>
+        <option>Compliance</option>
+        <option>Retail Banking</option>
+        <option>Lending</option>
+        <option>Operations</option>
+        <option>Finance</option>
+        <option>IT</option>
+        <option>Management</option>
+        <option>Fraud</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div>
+      <label>Branch / Location <span class="req">*</span></label>
+      <select id="branch" required>
+        <option value="">Select Branch</option>
+        <option>Main Branch</option>
+        <option>Malcolm X</option>
+        <option>Restoration</option>
+        <option>Flatbush</option>
+        <option>Atlantic</option>
+        <option>Crown HTS</option>
+        <option>St. Albans</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div>
+      <label>Date of Report <span class="req">*</span></label>
+      <input type="date" id="dateOfReport" required>
+    </div>
+    <div>
+      <label>Manager Name</label>
+      <input type="text" id="managerName" placeholder="Supervising manager full name">
+    </div>
+    <div>
+      <label>Manager Notified</label>
+      <select id="managerNotified">
+        <option value="">Select</option>
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section">2. CUSTOMER INFORMATION</div>
+  <div class="grid">
+    <div>
+      <label>Customer Name <span class="req">*</span></label>
+      <input type="text" id="customerName" placeholder="Full legal name" required>
+    </div>
+    <div>
+      <label>Related Party Information, if known</label>
+      <input type="text" id="relatedParty" placeholder="Name and relationship to customer">
+    </div>
+    <div>
+      <label>Account Number(s) <span class="req">*</span></label>
+      <input type="text" id="accountNumbers" placeholder="e.g. 123456, 789012" required>
+      <span class="field-hint">List all related account numbers separated by commas</span>
+    </div>
+    <div>
+      <label>Customer Type <span class="req">*</span></label>
+      <select id="customerType" required>
+        <option value="">Select Customer Type</option>
+        <option>Individual</option>
+        <option>Business</option>
+        <option>Trust</option>
+        <option>Non-Profit</option>
+        <option>Government</option>
+        <option>Financial Institution</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div>
+      <label>Customer ID / CIF <span class="req">*</span></label>
+      <input type="text" id="customerCIF" placeholder="CIF or customer ID number" required>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section">3. ACTIVITY DETAILS</div>
+  <div class="grid">
+    <div>
+      <label>Activity Type <span class="req">*</span></label>
+      <select id="activityType" required>
+        <option value="">Select Activity Type</option>
+        <option>Cash Deposit</option>
+        <option>Cash Withdrawal</option>
+        <option>Wire Transfer</option>
+        <option>ACH Transfer</option>
+        <option>Check Activity</option>
+        <option>Structuring</option>
+        <option>Money Laundering</option>
+        <option>Fraud</option>
+        <option>Identity Theft</option>
+        <option>Embezzlement</option>
+        <option>Unauthorized Transaction</option>
+        <option>Suspicious Wire Transfer</option>
+        <option>Terrorist Financing</option>
+        <option>Elder Financial Exploitation</option>
+        <option>Mortgage Fraud</option>
+        <option>Credit Card Fraud</option>
+        <option>Account Takeover</option>
+        <option>Sanctions Concern</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div>
+      <label>Red Flag Category <span class="req">*</span></label>
+      <select id="redFlagCategory" required>
+        <option value="">Select Red Flag Category</option>
+        <option>Unusual Cash Activity</option>
+        <option>Structuring</option>
+        <option>Rapid Movement of Funds</option>
+        <option>High Risk Geography</option>
+        <option>High Risk Business Type</option>
+        <option>Unusual Wire Activity</option>
+        <option>Multiple Accounts Same Customer</option>
+        <option>Dormant Account Activity</option>
+        <option>Third Party Payments</option>
+        <option>Inconsistent Business Activity</option>
+        <option>Customer Reluctant to Provide Info</option>
+        <option>Unusual Transaction Size</option>
+        <option>Politically Exposed Person (PEP)</option>
+        <option>Sanctions Match</option>
+        <option>Negative News</option>
+        <option>Identity Concerns</option>
+        <option>Account Takeover</option>
+        <option>Elder Exploitation</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div>
+      <label>Transaction Amount(s) <span class="req">*</span></label>
+      <div style="position:relative">
+        <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#007B85;font-weight:bold;font-size:14px">$</span>
+        <input type="text" id="transactionAmount" placeholder="0.00" required 
+          style="padding-left:24px"
+          oninput="formatCurrency(this)"
+          onblur="finalizeCurrency(this)">
+      </div>
+      <span class="field-hint">Enter amount — dollar sign added automatically</span>
+    </div>
+    <div class="full">
+      <div class="date-row">
+        <div>
+          <label>Start Date of Activity <span class="req">*</span></label>
+          <input type="date" id="startDate" required>
+        </div>
+        <div>
+          <label>End Date of Activity <span class="req">*</span></label>
+          <input type="date" id="endDate" required>
+        </div>
+      </div>
+    </div>
+    <div class="full">
+      <label>Channel / Location <span class="req">*</span></label>
+      <input type="text" id="channelLocation" placeholder="e.g. Teller window — 125th St Branch, Online banking, ATM" required>
+      <span class="field-hint">Include delivery channel, instrument used, and branch or location</span>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section">4. DESCRIPTION OF ACTIVITY</div>
+  <div class="grid">
+    <div class="full">
+      <label>Detailed Explanation <span class="req">*</span></label>
+      <span class="field-hint" style="margin-bottom:6px">Describe clearly and factually using complete sentences. Avoid assumptions or unsupported conclusions. Include dates, amounts, instruments, locations, channels, counterparties, and all relevant details.</span>
+      <textarea id="activityDescription" required>Between [start date] and [end date], [customer name] ([CIF/customer ID]) conducted [describe activity] involving account(s) [#] in the amount(s) of [amounts], through [channel/location].
+
+This activity is unusual because [explain variance from expected activity based on profile/history], and include any relevant patterns such as frequency, size, counterparties, or geographic indicators.
+
+A review of systems/reports for the relevant period was completed, including CDD/EDD review, transaction history, account profile, supporting documents, and research.
+
+Summarize any customer contact/outreach and results, if applicable.
+
+Based on the above, this matter is being escalated to the BSA/AML Team for further review and determination.</textarea>
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="section">5. RISK ASSESSMENT</div>
+  <div class="grid">
+    <div>
+      <label>Risk Level <span class="req">*</span></label>
+      <select id="riskLevel" required>
+        <option value="">Select Risk Level</option>
+        <option>Low</option>
+        <option>Medium</option>
+        <option>High</option>
+        <option>Critical</option>
+      </select>
+    </div>
+    <div>
+      <label>Urgency <span class="req">*</span></label>
+      <select id="urgency" required>
+        <option value="">Select Urgency</option>
+        <option>Routine: 2 Business Days</option>
+        <option>Expedited: 1 Business Day</option>
+        <option>Immediate: Same Business Day</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="section">6. SUBMISSION INFORMATION</div>
+  <div class="grid">
+    <div>
+      <label>Supporting Documents Attached</label>
+      <select id="supportingDocs">
+        <option value="">Select</option>
+        <option>Yes</option>
+        <option>No</option>
+        <option>Pending</option>
+      </select>
+      <span class="field-hint">Account statements, teller tickets, wire details, screenshots, etc.</span>
+    </div>
+    <div>
+      <label>Priority</label>
+      <select id="priority">
+        <option value="">Select Priority</option>
+        <option>Low</option>
+        <option>Medium</option>
+        <option>High</option>
+        <option>Critical</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- FILE ATTACHMENT SECTION -->
+  <div class="section">7. SUPPORTING DOCUMENTS</div>
+  <div style="margin-top:14px">
+    <div class="upload-section" id="uploadArea" onclick="document.getElementById('fileInput').click()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+      <div class="upload-icon">📎</div>
+      <div class="upload-title">Attach Supporting Documents</div>
+      <div class="upload-subtitle">Drag & drop files here or click to browse<br>
+      Accepted: PDF, Word, Excel, Images, Screenshots (Max 25MB each)</div>
+      <button class="upload-btn" onclick="event.stopPropagation(); document.getElementById('fileInput').click()">Browse Files</button>
+      <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg,.gif,.tiff,.msg,.eml,.csv,.txt" onchange="handleFileSelect(event)">
+    </div>
+    <div class="file-list" id="fileList"></div>
+  </div>
+
+  <!-- SECTION 8 - BSA ONLY -->
+  <div class="bsa-section">
+    <div class="section">8. BSA/AML USE ONLY</div>
+    <p class="bsa-note">This section is to be completed exclusively by the BSA/AML team. All findings must be documented in the BSA case management system of record.</p>
+    <div class="grid">
+      <div>
+        <label>SAR Filed</label>
+        <select id="sarFiled">
+          <option value="">Select</option>
+          <option>Yes</option>
+          <option>No</option>
+          <option>Pending</option>
+          <option>Under Review</option>
+        </select>
+      </div>
+      <div>
+        <label>Assigned Investigator</label>
+        <input type="text" id="assignedInvestigator" placeholder="BSA investigator name">
+      </div>
+      <div>
+        <label>Reviewer Name</label>
+        <input type="text" id="reviewerName" placeholder="BSA reviewer full name">
+      </div>
+      <div>
+        <label>Date Reviewed</label>
+        <input type="date" id="dateReviewed">
+      </div>
+      <div>
+        <label>Case Status</label>
+        <select id="status">
+          <option value="New">New</option>
+          <option value="Under Review">Under Review</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Pending Info">Pending Additional Info</option>
+          <option value="Escalated">Escalated</option>
+          <option value="SAR Filed">SAR Filed</option>
+          <option value="Closed - No Action">Closed — No Action Required</option>
+          <option value="Closed - Resolved">Closed — Resolved</option>
+        </select>
+      </div>
+      <div>
+        <label>Resolution Date</label>
+        <input type="date" id="resolutionDate">
+      </div>
+      <div class="full">
+        <label>Comments / Disposition</label>
+        <span class="field-hint" style="margin-bottom:6px">Document investigative steps, findings, rationale for disposition, and escalation decisions. Retain all records per applicable retention requirements per Bank policy.</span>
+        <textarea id="commentsDisposition" style="min-height:120px" placeholder="Enter BSA team investigative findings, disposition, and case notes..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATUS BAR -->
+  <div class="status-bar" id="statusBar"></div>
+
+  <!-- BUTTONS -->
+  <div class="button-row">
+    <button class="btn-print" onclick="printForm()">🖨️ Print / Save as PDF</button>
+    <button class="btn-submit" onclick="submitForm()">✅ Submit UAR</button>
+    <button class="btn-new" onclick="newForm()">➕ New UAR</button>
+  </div>
+
+  <div class="footer">
+    Confidential: This report contains sensitive information intended solely for internal BSA/AML compliance purposes. Unauthorized disclosure is prohibited.<br>
+    Carver Federal Savings Bank | BSA/AML Compliance | Questions: BSA_UAR@Carverbank.com<br>
+    All UARs must be maintained in the Jack Henry Defender system of record per applicable retention requirements.
+  </div>
+
+</div>
+
+<script>
+  // ============================================================
+  // CONFIGURATION — CARVER BANK BSA PORTAL
+  // ============================================================
+  const CONFIG = {
+    sharepointSite: "https://carverfederalsavingsbank.sharepoint.com/sites/BSACompliancePortal",
+    listName: "UAR Submissions",
+    documentLibrary: "UAR Documents",
+    bsaEmail: "BSA_UAR@Carverbank.com",
+    // PASTE YOUR POWER AUTOMATE HTTP URL BELOW AFTER SAVING THE FLOW
+    flowUrl: "https://default32bb198795b14f40bf2fe10a669793.4c.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e39c421fc04a4092b59440ec1def1d32/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=IHScJdeXdl-6Er5iBFqZeRChPN7upxiIcHBu1nGMS6Q"
+  };
+
+  // Get SharePoint context — works inside iframe and standalone
+  function getSPContext() {
+    try {
+      // Try parent window first (when inside SharePoint iframe)
+      if (window.parent && window.parent._spPageContextInfo) {
+        return window.parent._spPageContextInfo;
+      }
+      // Try current window
+      if (window._spPageContextInfo) {
+        return window._spPageContextInfo;
+      }
+    } catch(e) {}
+    return null;
+  }
+
+  async function getDigest(siteUrl) {
+    // Try getting digest from SP context first
+    const ctx = getSPContext();
+    if (ctx && ctx.formDigestValue) {
+      return ctx.formDigestValue;
+    }
+    // Otherwise fetch it
+    const response = await fetch(`${siteUrl}/_api/contextinfo`, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json;odata=verbose' },
+      credentials: 'include'
+    });
+    const data = await response.json();
+    return data.d.GetContextWebInformation.FormDigestValue;
+  }
+
+  let attachedFiles = [];
+
+  // On page load
+  window.onload = function() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('dateOfReport').value = today;
+    generateNumbers();
+  };
+
+  // Generate UAR Number — format UAR-YYYY-XXXX
+  function generateNumbers() {
+    const year = new Date().getFullYear();
+    const ts = Date.now().toString().slice(-4);
+    const uarNum = `UAR-${year}-${ts}`;
+    document.getElementById('uarNumberDisplay').textContent = `UAR #: ${uarNum}`;
+    document.getElementById('uarNumberDisplay').setAttribute('data-uar', uarNum);
+    return { uarNum };
+  }
+
+  // FILE HANDLING
+  function handleFileSelect(event) {
+    const files = Array.from(event.target.files);
+    addFiles(files);
+  }
+
+  function handleDragOver(event) {
+    event.preventDefault();
+    document.getElementById('uploadArea').classList.add('dragover');
+  }
+
+  function handleDragLeave(event) {
+    document.getElementById('uploadArea').classList.remove('dragover');
+  }
+
+  function handleDrop(event) {
+    event.preventDefault();
+    document.getElementById('uploadArea').classList.remove('dragover');
+    const files = Array.from(event.dataTransfer.files);
+    addFiles(files);
+  }
+
+  function addFiles(files) {
+    const maxSize = 25 * 1024 * 1024; // 25MB
+    files.forEach(file => {
+      if (file.size > maxSize) {
+        alert(`${file.name} is too large. Maximum file size is 25MB.`);
+        return;
+      }
+      if (!attachedFiles.find(f => f.name === file.name && f.size === file.size)) {
+        attachedFiles.push(file);
+      }
+    });
+    renderFileList();
+  }
+
+  function getFileIcon(filename) {
+    const ext = filename.split('.').pop().toLowerCase();
+    const icons = {
+      pdf: '📄', doc: '📝', docx: '📝',
+      xls: '📊', xlsx: '📊', csv: '📊',
+      png: '🖼️', jpg: '🖼️', jpeg: '🖼️', gif: '🖼️', tiff: '🖼️',
+      msg: '📧', eml: '📧', txt: '📃'
+    };
+    return icons[ext] || '📎';
+  }
+
+  function formatFileSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  }
+
+  function removeFile(index) {
+    attachedFiles.splice(index, 1);
+    renderFileList();
+  }
+
+  function renderFileList() {
+    const list = document.getElementById('fileList');
+    if (attachedFiles.length === 0) {
+      list.innerHTML = '';
+      return;
+    }
+    list.innerHTML = `
+      <div class="file-count">📎 ${attachedFiles.length} document(s) attached</div>
+      ${attachedFiles.map((file, index) => `
+        <div class="file-item">
+          <div class="file-item-name">
+            <span class="file-icon">${getFileIcon(file.name)}</span>
+            <div>
+              <div>${file.name}</div>
+              <div class="file-size">${formatFileSize(file.size)}</div>
+            </div>
+          </div>
+          <button class="file-remove" onclick="removeFile(${index})" title="Remove file">✕</button>
+        </div>
+      `).join('')}
+    `;
+  }
+
+  // VALIDATION
+  function validateForm() {
+    const required = [
+      { id: 'employeeName', label: 'Employee Name' },
+      { id: 'department', label: 'Department' },
+      { id: 'branch', label: 'Branch / Location' },
+      { id: 'dateOfReport', label: 'Date of Report' },
+      { id: 'customerName', label: 'Customer Name' },
+      { id: 'accountNumbers', label: 'Account Number(s)' },
+      { id: 'customerType', label: 'Customer Type' },
+      { id: 'customerCIF', label: 'Customer ID / CIF' },
+      { id: 'activityType', label: 'Activity Type' },
+      { id: 'redFlagCategory', label: 'Red Flag Category' },
+      { id: 'transactionAmount', label: 'Transaction Amount(s)' },
+      { id: 'startDate', label: 'Start Date of Activity' },
+      { id: 'endDate', label: 'End Date of Activity' },
+      { id: 'channelLocation', label: 'Channel / Location' },
+      { id: 'activityDescription', label: 'Detailed Explanation' },
+      { id: 'riskLevel', label: 'Risk Level' },
+      { id: 'urgency', label: 'Urgency' }
+    ];
+
+    let firstError = null;
+    required.forEach(field => {
+      const el = document.getElementById(field.id);
+      if (!el.value || el.value.trim() === '') {
+        el.style.borderColor = '#FF5100';
+        el.style.boxShadow = '0 0 0 2px rgba(255,81,0,0.15)';
+        if (!firstError) firstError = { el, label: field.label };
+      } else {
+        el.style.borderColor = '#ccc';
+        el.style.boxShadow = 'none';
+      }
+    });
+
+    if (firstError) {
+      firstError.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      showStatus(`⚠️ Please complete required field: ${firstError.label}`, 'error');
+      return false;
+    }
+    return true;
+  }
+
+  function showStatus(message, type) {
+    const bar = document.getElementById('statusBar');
+    bar.innerHTML = message;
+    bar.className = `status-bar status-${type}`;
+    bar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // UPLOAD FILES TO SHAREPOINT
+  async function uploadFilesToSharePoint(uarNumber, caseNumber, digest) {
+    if (attachedFiles.length === 0) return [];
+    
+    const uploadedFiles = [];
+    const folderPath = `${CONFIG.documentLibrary}/${uarNumber}`;
+
+    // Create folder for this UAR
+    try {
+      await fetch(
+        `${CONFIG.sharepointSite}/_api/web/folders`,
+        {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json;odata=verbose',
+            'Content-Type': 'application/json;odata=verbose',
+            'X-RequestDigest': digest
+          },
+          credentials: 'include',
+          body: JSON.stringify({
+            __metadata: { type: 'SP.Folder' },
+            ServerRelativeUrl: `/sites/${CONFIG.sharepointSite.split('/sites/')[1]}/${folderPath}`
+          })
+        }
+      );
+    } catch(e) { console.log('Folder may already exist'); }
+
+    // Upload each file
+    for (const file of attachedFiles) {
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const response = await fetch(
+          `${CONFIG.sharepointSite}/_api/web/GetFolderByServerRelativeUrl('${folderPath}')/Files/add(url='${encodeURIComponent(file.name)}',overwrite=true)`,
+          {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json;odata=verbose',
+              'X-RequestDigest': digest,
+              'Content-Length': file.size
+            },
+            credentials: 'include',
+            body: arrayBuffer
+          }
+        );
+        if (response.ok) uploadedFiles.push(file.name);
+      } catch(e) {
+        console.log(`Failed to upload ${file.name}:`, e);
+      }
+    }
+    return uploadedFiles;
+  }
+
+  // SUBMIT FORM
+  async function submitForm() {
+    if (!validateForm()) return;
+
+    const uarNumber = document.getElementById('uarNumberDisplay').getAttribute('data-uar');
+
+    showStatus(`⏳ Submitting UAR ${uarNumber}... please wait.`, 'loading');
+
+    const formData = {
+      Title: uarNumber,
+      UARNumber: uarNumber,
+      EmployeeName: document.getElementById('employeeName').value,
+      EmployeeEmail: document.getElementById('employeeEmail').value,
+      Department: document.getElementById('department').value,
+      Branch: document.getElementById('branch').value,
+      DateofReport: document.getElementById('dateOfReport').value,
+      ManagerName: document.getElementById('managerName').value,
+      ManagerNotified: document.getElementById('managerNotified').value,
+      CustomerName: document.getElementById('customerName').value,
+      RelatedPartyInformationifKnown: document.getElementById('relatedParty').value,
+      AccountNumbers: document.getElementById('accountNumbers').value,
+      CustomerType: document.getElementById('customerType').value,
+      CustomerIDCIF: document.getElementById('customerCIF').value,
+      ActivityType: document.getElementById('activityType').value,
+      RedFlagCategory: document.getElementById('redFlagCategory').value,
+      TransactionAmounts: getCurrencyValue(document.getElementById('transactionAmount')),
+      TransactionAmountsDisplay: (function() {
+        const val = document.getElementById('transactionAmount').value.replace(/[^0-9.]/g, '');
+        if (!val) return '$0.00';
+        const num = parseFloat(val);
+        return '$' + num.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      })(),
+      StartDateofActivity: document.getElementById('startDate').value,
+      EndDateofActivity: document.getElementById('endDate').value,
+      ChannelLocation: document.getElementById('channelLocation').value,
+      ActivityDescription: document.getElementById('activityDescription').value,
+      RiskLevel: document.getElementById('riskLevel').value,
+      Urgency: document.getElementById('urgency').value,
+      SupportingDocumentsAttached: attachedFiles.length > 0 ? 'Yes' : document.getElementById('supportingDocs').value,
+      Priority: document.getElementById('priority').value,
+      AttachedFileNames: attachedFiles.map(f => f.name).join(', '),
+      AttachedFileCount: String(attachedFiles.length),
+      Status: 'New',
+      SubmittedDate: new Date().toISOString()
+    };
+
+    // Convert attachments to base64
+    const fileData = [];
+    for (const file of attachedFiles) {
+      const base64 = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.readAsDataURL(file);
+      });
+      fileData.push({
+        name: file.name,
+        content: base64,
+        size: file.size
+      });
+    }
+    if (fileData.length > 0) {
+      formData.Attachments = fileData;
+    }
+
+    try {
+      // Submit to Power Automate HTTP trigger
+      const response = await fetch(CONFIG.flowUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok || response.status === 202) {
+        showStatus(`
+          ✅ <strong>UAR ${uarNumber} submitted successfully!</strong><br>
+          The BSA/AML team has been notified at ${CONFIG.bsaEmail}.<br>
+          Please reference <strong>${uarNumber}</strong> for all follow-up communications.<br>
+          📄 Please click <strong>Print / Save as PDF</strong> below to save a copy for your records.
+        `, 'success');
+        document.querySelector('.btn-submit').disabled = true;
+        document.querySelector('.btn-submit').style.opacity = '0.6';
+      } else {
+        throw new Error('Flow returned error: ' + response.status);
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      // Email fallback
+      const subject = `UAR Submission - ${uarNumber} - ${formData.CustomerName}`;
+      const body = `UAR NUMBER: ${uarNumber}
+SUBMITTED BY: ${formData.EmployeeName}
+DEPARTMENT: ${formData.Department}
+BRANCH: ${formData.Branch}
+DATE OF REPORT: ${formData.DateofReport}
+CUSTOMER NAME: ${formData.CustomerName}
+ACCOUNT NUMBER(S): ${formData.AccountNumbers}
+CUSTOMER TYPE: ${formData.CustomerType}
+CUSTOMER ID/CIF: ${formData.CustomerIDCIF}
+ACTIVITY TYPE: ${formData.ActivityType}
+RED FLAG CATEGORY: ${formData.RedFlagCategory}
+TRANSACTION AMOUNT(S): ${formData.TransactionAmounts}
+START DATE: ${formData.StartDateofActivity}
+END DATE: ${formData.EndDateofActivity}
+CHANNEL/LOCATION: ${formData.ChannelLocation}
+ACTIVITY DESCRIPTION: ${formData.ActivityDescription}
+RISK LEVEL: ${formData.RiskLevel}
+URGENCY: ${formData.Urgency}
+PRIORITY: ${formData.Priority}
+SUPPORTING DOCUMENTS: ${formData.SupportingDocumentsAttached}
+MANAGER NAME: ${formData.ManagerName}
+MANAGER NOTIFIED: ${formData.ManagerNotified}
+SUBMITTED DATE: ${formData.SubmittedDate}`;
+
+      window.location.href = `mailto:${CONFIG.bsaEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+      showStatus(`
+        ✅ <strong>UAR ${uarNumber} ready!</strong><br>
+        Your Outlook has opened with the complete UAR.<br>
+        Click <strong>Send</strong> in Outlook to submit to BSA team.<br>
+        Click <strong>Print / Save as PDF</strong> to save your copy.
+      `, 'success');
+      document.querySelector('.btn-submit').disabled = true;
+      document.querySelector('.btn-submit').style.opacity = '0.6';
+    }
+  }
+
+  // CURRENCY FORMATTING — live commas as user types
+  function formatCurrency(input) {
+    let pos = input.selectionStart;
+    let raw = input.value.replace(/[^0-9.]/g, '');
+    
+    // Handle decimal
+    const parts = raw.split('.');
+    if (parts.length > 2) raw = parts[0] + '.' + parts.slice(1).join('');
+    
+    // Format integer part with commas
+    let intPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    let decPart = parts[1] !== undefined ? '.' + parts[1].substring(0, 2) : '';
+    
+    const formatted = intPart + decPart;
+    const oldLen = input.value.length;
+    input.value = formatted;
+    
+    // Adjust cursor position
+    const newLen = input.value.length;
+    input.setSelectionRange(pos + (newLen - oldLen), pos + (newLen - oldLen));
+  }
+
+  function finalizeCurrency(input) {
+    let raw = input.value.replace(/[^0-9.]/g, '');
+    if (!raw) return;
+    const num = parseFloat(raw);
+    if (!isNaN(num)) {
+      input.value = num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+  }
+
+  function getCurrencyValue(input) {
+    const val = input.value.replace(/[^0-9.]/g, '');
+    return parseFloat(val) || 0;
+  }
+
+  // PRINT
+  function printForm() {
+    window.print();
+  }
+
+  // NEW FORM
+  function newForm() {
+    if (confirm('Clear this form and start a new UAR? Make sure you have submitted or saved this one first.')) {
+      document.querySelectorAll('input[type="text"], input[type="date"], textarea').forEach(el => {
+        if (el.id === 'dateOfReport') {
+          el.value = new Date().toISOString().split('T')[0];
+        } else if (el.id === 'activityDescription') {
+          el.value = `Between [start date] and [end date], [customer name] ([CIF/customer ID]) conducted [describe activity] involving account(s) [#] in the amount(s) of [amounts], through [channel/location].\n\nThis activity is unusual because [explain variance from expected activity based on profile/history], and include any relevant patterns such as frequency, size, counterparties, or geographic indicators.\n\nA review of systems/reports for the relevant period was completed, including CDD/EDD review, transaction history, account profile, supporting documents, and research.\n\nSummarize any customer contact/outreach and results, if applicable.\n\nBased on the above, this matter is being escalated to the BSA/AML Team for further review and determination.`;
+        } else {
+          el.value = '';
+        }
+        el.style.borderColor = '#ccc';
+        el.style.boxShadow = 'none';
+      });
+      document.querySelectorAll('select').forEach(el => {
+        el.value = el.id === 'status' ? 'New' : '';
+        el.style.borderColor = '#ccc';
+      });
+      attachedFiles = [];
+      renderFileList();
+      document.getElementById('fileInput').value = '';
+      document.querySelector('.btn-submit').disabled = false;
+      document.querySelector('.btn-submit').style.opacity = '1';
+      document.getElementById('statusBar').className = 'status-bar';
+      generateNumbers();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+</script>
+</body>
+</html>

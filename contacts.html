@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-Frame-Options" content="ALLOWALL">
+<meta http-equiv="Content-Security-Policy" content="frame-ancestors *">
+<title>BSA Contact Directory</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background: #EDF5F6; padding: 20px; }
+h1 { color: #007B85; font-size: 22px; margin-bottom: 6px; }
+.subtitle { color: #252525; font-size: 13px; margin-bottom: 20px; opacity: 0.7; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+.card { background: #ffffff; border-radius: 10px; padding: 18px; border-left: 4px solid #007B85; box-shadow: 0 2px 6px rgba(0,123,133,0.1); }
+.card.fraud { border-left-color: #FF5100; }
+.card.complaint { border-left-color: #FFB71B; }
+.card.confidential { border-left-color: #252525; }
+.card-icon { font-size: 26px; margin-bottom: 8px; }
+.card-title { font-size: 14px; font-weight: bold; color: #252525; margin-bottom: 4px; }
+.card-desc { font-size: 12px; color: #666; margin-bottom: 12px; line-height: 1.5; }
+.contact-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
+.contact-label { font-size: 10px; color: #007B85; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; min-width: 50px; padding-top: 2px; }
+.contact-value { font-size: 12px; color: #252525; line-height: 1.5; }
+.contact-value a { color: #007B85; text-decoration: none; font-weight: 500; }
+.contact-value a:hover { text-decoration: underline; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: bold; margin-top: 8px; }
+.badge-teal { background: #EDF5F6; color: #007B85; }
+.badge-orange { background: #fff0eb; color: #FF5100; }
+.badge-yellow { background: #fffbeb; color: #cc8800; }
+.badge-dark { background: #f0f0f0; color: #252525; }
+.urgent { font-size: 10px; color: #FF5100; font-weight: bold; margin-top: 6px; }
+hr { border: none; border-top: 1px solid #f0f0f0; margin: 10px 0; }
+.note-box { background: #EDF5F6; border-radius: 6px; padding: 8px 12px; font-size: 11px; color: #007B85; margin-top: 8px; line-height: 1.6; }
+.footer { margin-top: 20px; text-align: center; font-size: 11px; color: #999; }
+</style>
+</head>
+<body>
+
+<h1>BSA/AML Contact Directory</h1>
+<p class="subtitle">Carver Federal Savings Bank — Confidential · Internal Use Only</p>
+
+<div class="grid">
+
+  <div class="card">
+    <div class="card-icon">📬</div>
+    <div class="card-title">General BSA/AML & Compliance Inquiry</div>
+    <div class="card-desc">General compliance questions, policy guidance, and BSA/AML information requests.</div>
+    <hr>
+    <div class="contact-item">
+      <span class="contact-label">Dept</span>
+      <span class="contact-value"><a href="mailto:BSADepartment@carverbank.com">BSADepartment@carverbank.com</a></span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Hours</span>
+      <span class="contact-value">Mon–Fri, 8:30 AM – 5:30 PM EST</span>
+    </div>
+    <span class="badge badge-teal">Response within 24 hours</span>
+  </div>
+
+  <div class="card">
+    <div class="card-icon">📋</div>
+    <div class="card-title">UAR Submission</div>
+    <div class="card-desc">Submit Unusual Activity Reports and follow up on existing UAR cases.</div>
+    <hr>
+    <div class="contact-item">
+      <span class="contact-label">Email</span>
+      <span class="contact-value"><a href="mailto:BSA_UAR@carverbank.com">BSA_UAR@carverbank.com</a></span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Hours</span>
+      <span class="contact-value">Mon–Fri, 8:30 AM – 5:30 PM EST</span>
+    </div>
+    <span class="badge badge-teal">Always reference your UAR number</span>
+  </div>
+
+  <div class="card fraud">
+    <div class="card-icon">🚨</div>
+    <div class="card-title">Fraud Reporting</div>
+    <div class="card-desc">Report suspected fraud, account takeover, identity theft, or financial crimes immediately.</div>
+    <hr>
+    <div class="contact-item">
+      <span class="contact-label">Email</span>
+      <span class="contact-value"><a href="mailto:FraudIncident@carverbank.com">FraudIncident@carverbank.com</a></span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Hotline</span>
+      <span class="contact-value"><a href="tel:2123608898">212-360-8898</a></span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Hours</span>
+      <span class="contact-value">Mon–Fri, 8:30 AM – 5:30 PM EST</span>
+    </div>
+    <span class="badge badge-orange">Urgent — Contact immediately</span>
+    <p class="urgent">⚠️ Do NOT alert the customer</p>
+  </div>
+
+  <div class="card complaint">
+    <div class="card-icon">💬</div>
+    <div class="card-title">Customer Complaints</div>
+    <div class="card-desc">Escalate customer complaints related to compliance, fraud, or regulatory matters.</div>
+    <hr>
+    <div class="contact-item">
+      <span class="contact-label">Email</span>
+      <span class="contact-value"><a href="mailto:customercompliant@carverbank.com">customercompliant@carverbank.com</a></span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Hotline</span>
+      <span class="contact-value"><a href="tel:2123608886">212-360-8886</a></span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Hours</span>
+      <span class="contact-value">Mon–Fri, 8:30 AM – 5:30 PM EST</span>
+    </div>
+    <span class="badge badge-yellow">Response within 48 hours</span>
+  </div>
+
+  <div class="card confidential">
+    <div class="card-icon">⚖️</div>
+    <div class="card-title">314(a) & 314(b) Information Sharing</div>
+    <div class="card-desc">FinCEN 314(a) and 314(b) information sharing requests and law enforcement inquiries.</div>
+    <hr>
+    <div class="contact-item">
+      <span class="contact-label">Email</span>
+      <span class="contact-value"><a href="mailto:infromationsharing314ab@carverbank.com">infromationsharing314ab@carverbank.com</a></span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Also</span>
+      <span class="contact-value"><a href="mailto:314bsa@carverbank.com">314bsa@carverbank.com</a></span>
+    </div>
+    <div class="note-box">Shared mailbox ensures continuity and maintains access to historical correspondence in the event of staffing changes.</div>
+    <span class="badge badge-dark">Authorized personnel only</span>
+  </div>
+
+  <div class="card fraud">
+    <div class="card-icon">⚡</div>
+    <div class="card-title">Zelle Error Code 755</div>
+    <div class="card-desc">Error code 755 indicates a Zelle transaction is pending review in the JHA Defender system. Must be manually released after confirmation by branch staff.</div>
+    <hr>
+    <div class="contact-item">
+      <span class="contact-label">Email</span>
+      <span class="contact-value"><a href="mailto:Zelle@Carverbank.com">Zelle@Carverbank.com</a></span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Hours</span>
+      <span class="contact-value">Mon–Fri, 8:30 AM – 5:30 PM EST</span>
+    </div>
+    <div class="note-box">1. Contact Zelle@Carverbank.com<br>2. Branch staff confirms and verifies transaction<br>3. BSA team manually releases after confirmation<br>4. Reference account and transaction details</div>
+    <span class="badge badge-orange">Branch confirmation required</span>
+  </div>
+
+</div>
+
+<div class="footer">
+  Carver Federal Savings Bank — BSA & Compliance Portal<br>
+  Confidential · Internal Use Only
+</div>
+
+</body>
+</html>
