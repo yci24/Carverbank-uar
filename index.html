@@ -766,13 +766,14 @@ Based on the above, this matter is being escalated to the BSA/AML Team for furth
       });
       fileData.push({
         name: file.name,
-        content: base64,
-        size: file.size
+        contentBytes: base64,
+        contentType: file.type || 'application/octet-stream'
       });
     }
     if (fileData.length > 0) {
       formData.Attachments = fileData;
     }
+
 
     try {
       // Submit to Power Automate HTTP trigger
