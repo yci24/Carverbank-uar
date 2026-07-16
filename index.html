@@ -385,8 +385,9 @@ Based on the above, this matter is being escalated to the BSA/AML Team for furth
   <div style="margin-top:14px">
     <div class="upload-section" id="uploadArea" onclick="document.getElementById('fileInput').click()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
       <div class="upload-icon">📎</div>
-      <div class="upload-title">Attach Supporting Documents</div>
-      <div class="upload-subtitle">Drag & drop files here or click to browse<br>
+      <div class="upload-title">Supporting Documents</div>
+      <div class="upload-subtitle">Please email supporting documents to <strong>BSA_UAR@Carverbank.com</strong><br>
+      Use your UAR number as the email subject line.<br>
       Accepted: PDF, Word, Excel, Images, Screenshots (Max 25MB each)</div>
       <button class="upload-btn" onclick="event.stopPropagation(); document.getElementById('fileInput').click()">Browse Files</button>
       <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg,.gif,.tiff,.msg,.eml,.csv,.txt" onchange="handleFileSelect(event)">
@@ -762,10 +763,7 @@ Based on the above, this matter is being escalated to the BSA/AML Team for furth
       const base64 = await new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => {
-          // Get pure base64 without data URL prefix
-          const result = reader.result;
-          const base64Data = result.substring(result.indexOf(',') + 1);
-          resolve(base64Data);
+          resolve(reader.result);
         };
         reader.onerror = reject;
         reader.readAsDataURL(file);
