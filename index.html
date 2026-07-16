@@ -764,8 +764,14 @@ Based on the above, this matter is being escalated to the BSA/AML Team for furth
         reader.onload = () => resolve(reader.result.split(',')[1]);
         reader.readAsDataURL(file);
       });
+      // Ensure file has extension
+      let fileName = file.name;
+      if (!fileName.includes('.')) {
+        const ext = file.type.split('/')[1] || 'bin';
+        fileName = fileName + '.' + ext;
+      }
       fileData.push({
-        name: file.name,
+        name: fileName,
         contentBytes: base64,
         contentType: file.type || 'application/octet-stream'
       });
