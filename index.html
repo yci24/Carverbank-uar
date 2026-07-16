@@ -382,16 +382,16 @@ Based on the above, this matter is being escalated to the BSA/AML Team for furth
   <!-- FILE ATTACHMENT SECTION -->
   <div class="section">7. SUPPORTING DOCUMENTS</div>
   <div style="margin-top:14px">
-    <div class="upload-section" id="uploadArea" onclick="document.getElementById('fileInput').click()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
-      <div class="upload-icon">📎</div>
-      <div class="upload-title">Supporting Documents</div>
-      <div class="upload-subtitle">Please email supporting documents to <strong>BSA_UAR@Carverbank.com</strong><br>
-      Use your UAR number as the email subject line.<br>
-      Accepted: PDF, Word, Excel, Images, Screenshots (Max 25MB each)</div>
-      <button class="upload-btn" onclick="event.stopPropagation(); document.getElementById('fileInput').click()">Browse Files</button>
-      <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg,.gif,.tiff,.msg,.eml,.csv,.txt" onchange="handleFileSelect(event)">
+    <div style="background: #EDF5F6; border: 2px dashed #007B85; border-radius: 8px; padding: 24px; text-align: center;">
+      <div style="font-size: 36px; margin-bottom: 10px;">📎</div>
+      <div style="font-size: 15px; font-weight: bold; color: #007B85; margin-bottom: 8px;">Supporting Documents</div>
+      <div style="font-size: 13px; color: #555; line-height: 1.8;">
+        After submitting this form, please email your supporting documents to:<br>
+        <strong style="color: #007B85;">BSA_UAR@Carverbank.com</strong><br>
+        Use your <strong>UAR Number</strong> as the email subject line.<br>
+        <span style="color: #FF5100; font-weight: bold;">⚠️ Do NOT email the customer about this report.</span>
+      </div>
     </div>
-    <div class="file-list" id="fileList"></div>
   </div>
 
   <!-- SECTION 8 - BSA ONLY -->
