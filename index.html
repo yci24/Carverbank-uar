@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- v20260707164910 -->
-  <title>Carver Federal Savings Bank - UAR Form</title>
+<title>Carver Federal Savings Bank - UAR Form</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 20px; color: #252525; }
@@ -737,12 +736,6 @@ Based on the above, this matter is being escalated to the BSA/AML Team for furth
       ActivityType: document.getElementById('activityType').value,
       RedFlagCategory: document.getElementById('redFlagCategory').value,
       TransactionAmounts: getCurrencyValue(document.getElementById('transactionAmount')),
-      TransactionAmountsDisplay: (function() {
-        const val = document.getElementById('transactionAmount').value.replace(/[^0-9.]/g, '');
-        if (!val) return '$0.00';
-        const num = parseFloat(val);
-        return '$' + num.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      })(),
       StartDateofActivity: document.getElementById('startDate').value,
       EndDateofActivity: document.getElementById('endDate').value,
       ChannelLocation: document.getElementById('channelLocation').value,
@@ -757,41 +750,6 @@ Based on the above, this matter is being escalated to the BSA/AML Team for furth
       SubmittedDate: new Date().toISOString()
     };
 
-    // Convert attachments to base64
-    const fileData = [];
-    for (const file of attachedFiles) {
-      const base64 = await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          resolve(reader.result);
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-      // Ensure file has extension
-      let fileName = file.name;
-      if (!fileName.includes('.')) {
-        const typeMap = {
-          'image/png': 'png', 'image/jpeg': 'jpg', 'image/gif': 'gif',
-          'application/pdf': 'pdf', 'application/msword': 'doc',
-          'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
-          'application/vnd.ms-excel': 'xls',
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx'
-        };
-        const ext = typeMap[file.type] || 'bin';
-        fileName = fileName + '.' + ext;
-      }
-      fileData.push({
-        name: fileName,
-        contentBytes: base64,
-        contentType: file.type || 'application/octet-stream'
-      });
-    }
-    if (fileData.length > 0) {
-      formData.Attachments = fileData;
-    }
-
-
     try {
       // Submit to Power Automate HTTP trigger
       const response = await fetch(CONFIG.flowUrl, {
@@ -805,7 +763,7 @@ Based on the above, this matter is being escalated to the BSA/AML Team for furth
           ✅ <strong>UAR ${uarNumber} submitted successfully!</strong><br>
           The BSA/AML team has been notified at ${CONFIG.bsaEmail}.<br>
           Please reference <strong>${uarNumber}</strong> for all follow-up communications.<br>
-          📄 Please click <strong>Print / Save as PDF</strong> below to save a copy for your records.
+          You will receive a confirmation email shortly.
         `, 'success');
         document.querySelector('.btn-submit').disabled = true;
         document.querySelector('.btn-submit').style.opacity = '0.6';
