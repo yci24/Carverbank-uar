@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carver Federal Savings Bank - Fraud Activity Report</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #EDF5F6; color: #252525; }
+
+  .page-header {
+    background: linear-gradient(135deg, #005060 0%, #007B85 60%, #009aa8 100%);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: #FF5100;
+  }
+  .header-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px 30px 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .header-text h1 {
+    color: #fff;
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+  .header-text p {
+    color: #FFB71B;
+    font-size: 13px;
+    margin-top: 4px;
+  }
+  .far-badge {
+    background: #FF5100;
+    color: #fff;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-left: auto;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 28px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,123,133,0.10);
+    overflow: hidden;
+  }
+
+  .far-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #EDF5F6;
+    padding: 12px 28px;
+    border-bottom: 2px solid #007B85;
+  }
+  .far-num {
+    font-size: 16px;
+    font-weight: bold;
+    color: #007B85;
+    letter-spacing: 1px;
+  }
+  .far-date {
+    font-size: 13px;
+    color: #555;
+  }
+
+  .section-header {
+    background: #007B85;
+    color: #fff;
+    padding: 10px 28px;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    border-left: 5px solid #FFB71B;
+    margin-top: 18px;
+  }
+  .section-header.fraud {
+    background: #FF5100;
+    border-left-color: #fff;
+  }
+
+  .form-body { padding: 0 28px 20px; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+  .full { grid-column: 1 / -1; }
+  .three { grid-template-columns: 1fr 1fr 1fr; }
+
+  label {
+    font-weight: bold;
+    font-size: 12px;
+    color: #007B85;
+    display: block;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .req { color: #FF5100; }
+
+  input[type="text"], input[type="date"], input[type="email"], select, textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    background: #fff;
+    transition: border-color 0.2s;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: #007B85;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0,123,133,0.1);
+  }
+  textarea { min-height: 160px; resize: vertical; font-size: 13px; line-height: 1.6; }
+
+  .field-hint { font-size: 11px; color: #888; margin-top: 3px; }
+
+  .currency-wrap { position: relative; }
+  .currency-wrap span {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #007B85;
+    font-weight: bold;
+    font-size: 14px;
+    pointer-events: none;
+  }
+  .currency-wrap input { padding-left: 24px; }
+
+  .date-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .status-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 16px; }
+
+  .button-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding: 28px;
+    background: #f8fafa;
+    border-top: 1px solid #e0e8e8;
+  }
+  button {
+    padding: 12px 28px;
+    border-radius: 6px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-submit { background: #FF5100; color: #fff; }
+  .btn-submit:hover { background: #cc4000; }
+  .btn-submit:disabled { background: #ccc; cursor: not-allowed; }
+  .btn-print { background: #007B85; color: #fff; }
+  .btn-print:hover { background: #005f6b; }
+  .btn-new { background: #EDF5F6; color: #007B85; border: 1.5px solid #007B85; }
+  .btn-new:hover { background: #d4eef0; }
+
+  #farStatus {
+    display: none;
+    margin: 0 28px 16px;
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-align: center;
+    font-size: 14px;
+  }
+  #farStatus.success { background: #e6f4ea; color: #1a5632; border: 1px solid #b7dfc5; }
+  #farStatus.error { background: #fdecea; color: #b3261e; border: 1px solid #f5c2c0; }
+  #farStatus.loading { background: #EDF5F6; color: #007B85; border: 1px solid #007B85; }
+
+  .confidential-footer {
+    background: #252525;
+    color: #aaa;
+    font-size: 11px;
+    text-align: center;
+    padding: 12px;
+    letter-spacing: 0.3px;
+  }
+
+  @media print {
+    body { background: #fff; }
+    .page-header { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .section-header { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .button-row { display: none; }
+    #farStatus { display: none !important; }
+    .container { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="header-inner">
+    <div class="header-text">
+      <h1>Fraud Activity Report (FAR)</h1>
+      <p>Carver Federal Savings Bank &mdash; BSA/AML &amp; Fraud Compliance</p>
+    </div>
+    <div class="far-badge">CONFIDENTIAL</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="far-meta">
+    <div class="far-num" id="farNumberDisplay">FAR #: Generating...</div>
+    <div class="far-date" id="farDateDisplay"></div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section-header">1. REPORTING EMPLOYEE INFORMATION</div>
+  <div class="form-body">
+    <div class="grid">
+      <div>
+        <label>Employee Name <span class="req">*</span></label>
+        <input type="text" id="employeeName" placeholder="Full legal name" required>
+      </div>
+      <div>
+        <label>Your Email <span class="req">*</span></label>
+        <input type="email" id="employeeEmail" placeholder="your.email@carverbank.com" required>
+      </div>
+      <div>
+        <label>Department <span class="req">*</span></label>
+        <select id="department" required>
+          <option value=""></option>
+          <option>Retail Banking</option>
+          <option>Operations</option>
+          <option>Lending</option>
+          <option>Compliance</option>
+          <option>BSA/AML</option>
+          <option>Finance</option>
+          <option>Fraud</option>
+          <option>IT</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div>
+        <label>Branch / Location <span class="req">*</span></label>
+        <select id="branch" required>
+          <option value=""></option>
+          <option>Main Branch</option>
+          <option>Atlantic Terminal</option>
+          <option>Crown Heights</option>
+          <option>Flatbush</option>
+          <option>Malcolm X</option>
+          <option>Restoration</option>
+          <option>St. Albans</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div>
+        <label>Date of Report <span class="req">*</span></label>
+        <input type="date" id="dateOfReport" required>
+      </div>
+      <div>
+        <label>Phone / Extension</label>
+        <input type="text" id="phoneExtension" placeholder="e.g. 212-360-8800 x1234">
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section-header">2. CUSTOMER INFORMATION</div>
+  <div class="form-body">
+    <div class="grid">
+      <div>
+        <label>Customer Name <span class="req">*</span></label>
+        <input type="text" id="customerName" placeholder="Full legal name" required>
+      </div>
+      <div>
+        <label>Customer Type <span class="req">*</span></label>
+        <select id="customerType" required>
+          <option value=""></option>
+          <option>Individual</option>
+          <option>Business</option>
+          <option>Non-Profit</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div>
+        <label>Account Number(s) <span class="req">*</span></label>
+        <input type="text" id="accountNumbers" placeholder="e.g. 123456, 789012" required>
+        <span class="field-hint">List all related account numbers separated by commas</span>
+      </div>
+      <div>
+        <label>Customer Contact # <span class="req">*</span></label>
+        <input type="text" id="customerContact" placeholder="Phone number" required>
+      </div>
+      <div>
+        <label>Date of Birth <span class="req">*</span></label>
+        <input type="date" id="dob" required>
+      </div>
+      <div>
+        <label>Date Account Opened <span class="req">*</span></label>
+        <input type="date" id="dateAccountOpened" required>
+      </div>
+      <div class="full">
+        <label>Related Party Information (if known)</label>
+        <input type="text" id="relatedParty" placeholder="Name, relationship, account number">
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section-header">3. ACTIVITY DETAILS</div>
+  <div class="form-body">
+    <div class="grid">
+      <div>
+        <label>Activity Type <span class="req">*</span></label>
+        <select id="activityType" required>
+          <option value=""></option>
+          <option>Check</option>
+          <option>ACH</option>
+          <option>Wire</option>
+          <option>P2P</option>
+          <option>Cash Withdrawals</option>
+          <option>Account Takeover</option>
+          <option>Unauthorized Online Access</option>
+          <option>Identity Theft</option>
+          <option>Debit Card</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div>
+        <label>Transaction Amount(s)</label>
+        <div class="currency-wrap">
+          <span>$</span>
+          <input type="text" id="transactionAmount" placeholder="0.00"
+            oninput="formatCurrency(this)" onblur="finalizeCurrency(this)">
+        </div>
+        <span class="field-hint">Enter primary amount; list additional amounts below</span>
+      </div>
+      <div class="full">
+        <label>Additional Transaction Amounts</label>
+        <input type="text" id="additionalAmounts" placeholder="e.g. $5,000.00 on 06/28, $3,000.00 on 07/01">
+        <span class="field-hint">List additional amounts, dates, and transaction types</span>
+      </div>
+      <div class="full date-row">
+        <div>
+          <label>Start Date of Activity <span class="req">*</span></label>
+          <input type="date" id="startDate" required>
+        </div>
+        <div>
+          <label>End Date of Activity <span class="req">*</span></label>
+          <input type="date" id="endDate" required>
+        </div>
+      </div>
+      <div class="full">
+        <label>Channel that Identified Activity <span class="req">*</span></label>
+        <input type="text" id="channelLocation" required placeholder="e.g. Teller, Online Banking, ATM, Branch Review">
+      </div>
+      <div>
+        <label>Police Report Filed <span class="req">*</span></label>
+        <select id="policeReportFiled" required>
+          <option value=""></option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div>
+        <label>Police Report Filed Date</label>
+        <input type="date" id="policeReportDate">
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section-header">4. DESCRIPTION OF ACTIVITY</div>
+  <div class="form-body">
+    <div style="margin-top:16px;">
+      <label>Detailed Explanation <span class="req">*</span></label>
+      <textarea id="detailedExplanation" required>Between [start date] and [end date], [customer name] ([CIF/customer ID]) conducted [describe activity] involving account(s) [#] in the amount(s) of [amounts], through [Channel].
+
+This activity is fraud because [explain variance from expected activity based on profile/history], and include any relevant patterns such as frequency, size, counterparties, or geographic indicators.
+
+A review of systems/reports for the relevant period was completed, including CDD/EDD review, transaction history, account profile, supporting documents, and research.
+
+Summarize any customer contact/outreach and results, if applicable.
+
+Based on the above, this matter is being escalated to the Fraud Team for further review and determination.</textarea>
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="section-header">5. ACCOUNT STATUS</div>
+  <div class="form-body">
+    <div class="status-grid">
+      <div>
+        <label>Account Restriction <span class="req">*</span></label>
+        <select id="accountRestriction" required>
+          <option value=""></option>
+          <option>Active</option>
+          <option>No Post</option>
+          <option>Restricted</option>
+        </select>
+      </div>
+      <div>
+        <label>Debit Card Status <span class="req">*</span></label>
+        <select id="debitCardStatus" required>
+          <option value=""></option>
+          <option>Active</option>
+          <option>Closed</option>
+          <option>Restricted</option>
+        </select>
+      </div>
+      <div>
+        <label>Digital Banking Status <span class="req">*</span></label>
+        <select id="digitalBankingStatus" required>
+          <option value=""></option>
+          <option>Active</option>
+          <option>Closed</option>
+          <option>Restricted</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="section-header">6. SUBMISSION INFORMATION</div>
+  <div class="form-body">
+    <div class="grid">
+      <div>
+        <label>Supporting Documents Attached</label>
+        <select id="supportingDocs">
+          <option value=""></option>
+          <option>Yes</option>
+          <option>No</option>
+          <option>Pending</option>
+        </select>
+      </div>
+      <div>
+        <label>Manager Notified</label>
+        <select id="managerNotified">
+          <option value=""></option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div class="full">
+        <label>Manager Name</label>
+        <input type="text" id="managerName" placeholder="Manager full name">
+      </div>
+    </div>
+    <div style="margin-top:14px;background:#fff8e1;border-left:4px solid #FFB71B;padding:12px 16px;border-radius:0 6px 6px 0;font-size:13px;color:#555;">
+      <strong style="color:#252525;">Supporting Documents:</strong> After submitting this form, please email supporting documents to
+      <strong><a href="mailto:FraudIncident@carverbank.com" style="color:#FF5100;">FraudIncident@carverbank.com</a></strong>
+      with your <strong>FAR Number</strong> in the subject line.
+      <br><span style="color:#FF5100;font-weight:bold;">&#9888; Do NOT discuss this matter with the customer.</span>
+    </div>
+  </div>
+
+  <!-- SECTION 7 FRAUD USE ONLY -->
+  <div class="section-header fraud">7. FRAUD USE ONLY &mdash; Do Not Complete</div>
+  <div class="form-body">
+    <div class="grid">
+      <div>
+        <label>SAR Filed</label>
+        <select id="sarFiled">
+          <option value=""></option>
+          <option>Yes</option>
+          <option>No</option>
+          <option>Pending</option>
+        </select>
+      </div>
+      <div>
+        <label>Reviewer Name</label>
+        <input type="text" id="reviewerName" placeholder="Fraud reviewer">
+      </div>
+      <div>
+        <label>Date Reviewed</label>
+        <input type="date" id="dateReviewed">
+      </div>
+      <div>
+        <label>Disposition</label>
+        <select id="disposition">
+          <option value=""></option>
+          <option>In Progress</option>
+          <option>Additional Information Required</option>
+          <option>Closed</option>
+        </select>
+      </div>
+      <div class="full">
+        <label>Comments</label>
+        <textarea id="fraudComments" style="min-height:80px;"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div id="farStatus"></div>
+
+  <div class="button-row">
+    <button class="btn-print" onclick="window.print()">&#128438; Print / Save as PDF</button>
+    <button class="btn-submit" id="farSubmitBtn" onclick="submitFAR()">&#128228; Submit FAR to Fraud Team</button>
+    <button class="btn-new" onclick="newForm()">&#43; New FAR</button>
+  </div>
+
+</div>
+
+<div class="confidential-footer">
+  CONFIDENTIAL &mdash; This report contains sensitive information intended solely for Fraud/BSA Compliance purposes.
+  Unauthorized disclosure is strictly prohibited. &mdash; Carver Federal Savings Bank
+</div>
+
+<script>
+  // ============================================================
+  // CONFIGURATION — paste FAR Power Automate HTTP trigger URL
+  // ============================================================
+  var CONFIG = {
+    flowUrl: "https://default32bb198795b14f40bf2fe10a669793.4c.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/08/workflows/b88141361b6f4425b5f86e15432878a6/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=j4fY7MhsyDH2Le3BPyXObbA4LFIlUCEQYaINP3AMbYY",
+    fraudEmail: "FraudIncident@carverbank.com"
+  };
+
+  // ============================================================
+  // FORM INITIALIZATION
+  // ============================================================
+  window.onload = function () {
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementById('dateOfReport').value = today;
+    generateFARNumber();
+    document.getElementById('farDateDisplay').textContent = 'Date: ' + new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  };
+
+  function generateFARNumber() {
+    var year = new Date().getFullYear();
+    var ts = Date.now().toString().slice(-4);
+    var farNum = 'FAR-' + year + '-' + ts;
+    document.getElementById('farNumberDisplay').textContent = 'FAR #: ' + farNum;
+    document.getElementById('farNumberDisplay').setAttribute('data-far', farNum);
+  }
+
+  // ============================================================
+  // CURRENCY FORMATTING
+  // ============================================================
+  function formatCurrency(input) {
+    var raw = input.value.replace(/[^0-9.]/g, '');
+    var parts = raw.split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    input.value = parts.length > 1 ? parts[0] + '.' + parts[1].slice(0, 2) : parts[0];
+  }
+
+  function finalizeCurrency(input) {
+    var raw = input.value.replace(/[^0-9.]/g, '');
+    if (!raw) return;
+    var num = parseFloat(raw);
+    if (!isNaN(num)) {
+      input.value = num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+  }
+
+  function getCurrencyValue(id) {
+    var val = document.getElementById(id).value.replace(/[^0-9.]/g, '');
+    return parseFloat(val) || 0;
+  }
+
+  // ============================================================
+  // VALIDATION
+  // ============================================================
+  function validateForm() {
+    var required = [
+      { id: 'employeeName', label: 'Employee Name' },
+      { id: 'employeeEmail', label: 'Your Email' },
+      { id: 'department', label: 'Department' },
+      { id: 'branch', label: 'Branch / Location' },
+      { id: 'dateOfReport', label: 'Date of Report' },
+      { id: 'customerName', label: 'Customer Name' },
+      { id: 'customerType', label: 'Customer Type' },
+      { id: 'accountNumbers', label: 'Account Number(s)' },
+      { id: 'customerContact', label: 'Customer Contact #' },
+      { id: 'dob', label: 'Date of Birth' },
+      { id: 'dateAccountOpened', label: 'Date Account Opened' },
+      { id: 'activityType', label: 'Activity Type' },
+      { id: 'startDate', label: 'Start Date of Activity' },
+      { id: 'endDate', label: 'End Date of Activity' },
+      { id: 'channelLocation', label: 'Channel that Identified Activity' },
+      { id: 'policeReportFiled', label: 'Police Report Filed' },
+      { id: 'detailedExplanation', label: 'Detailed Explanation' },
+      { id: 'accountRestriction', label: 'Account Restriction' },
+      { id: 'debitCardStatus', label: 'Debit Card Status' },
+      { id: 'digitalBankingStatus', label: 'Digital Banking Status' }
+    ];
+    for (var i = 0; i < required.length; i++) {
+      var el = document.getElementById(required[i].id);
+      if (!el.value || el.value.trim() === '') {
+        showStatus('Please complete required field: ' + required[i].label, 'error');
+        el.focus();
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // ============================================================
+  // STATUS DISPLAY
+  // ============================================================
+  function showStatus(msg, type) {
+    var el = document.getElementById('farStatus');
+    el.style.display = 'block';
+    el.className = type;
+    el.innerHTML = msg;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // ============================================================
+  // SUBMISSION
+  // ============================================================
+  async function submitFAR() {
+    if (!validateForm()) return;
+
+    var farNumber = document.getElementById('farNumberDisplay').getAttribute('data-far');
+    showStatus('&#8987; Submitting ' + farNumber + '... please wait.', 'loading');
+
+    var btn = document.getElementById('farSubmitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    var formData = {
+      FARNumber: farNumber,
+      EmployeeName: document.getElementById('employeeName').value,
+      EmployeeEmail: document.getElementById('employeeEmail').value,
+      Department: document.getElementById('department').value,
+      Branch: document.getElementById('branch').value,
+      DateOfReport: document.getElementById('dateOfReport').value,
+      PhoneExtension: document.getElementById('phoneExtension').value,
+      CustomerName: document.getElementById('customerName').value,
+      CustomerType: document.getElementById('customerType').value,
+      AccountNumbers: document.getElementById('accountNumbers').value,
+      CustomerContact: document.getElementById('customerContact').value,
+      DOB: document.getElementById('dob').value,
+      DateAccountOpened: document.getElementById('dateAccountOpened').value,
+      RelatedParty: document.getElementById('relatedParty').value,
+      ActivityType: document.getElementById('activityType').value,
+      TransactionAmounts: getCurrencyValue('transactionAmount'),
+      AdditionalAmounts: document.getElementById('additionalAmounts').value,
+      StartDate: document.getElementById('startDate').value,
+      EndDate: document.getElementById('endDate').value,
+      ChannelLocation: document.getElementById('channelLocation').value,
+      PoliceReportFiled: document.getElementById('policeReportFiled').value,
+      PoliceReportDate: document.getElementById('policeReportDate').value,
+      DetailedExplanation: document.getElementById('detailedExplanation').value,
+      AccountRestriction: document.getElementById('accountRestriction').value,
+      DebitCardStatus: document.getElementById('debitCardStatus').value,
+      DigitalBankingStatus: document.getElementById('digitalBankingStatus').value,
+      SupportingDocs: document.getElementById('supportingDocs').value,
+      ManagerNotified: document.getElementById('managerNotified').value,
+      ManagerName: document.getElementById('managerName').value,
+      Status: 'New',
+      SubmittedDate: new Date().toISOString()
+    };
+
+    // Check if flow URL is configured
+    if (CONFIG.flowUrl.indexOf('http') !== 0) {
+      // Fallback: open mailto
+      var subject = encodeURIComponent('FAR Submission - ' + farNumber + ' - ' + formData.CustomerName);
+      var body = encodeURIComponent(
+        'FAR NUMBER: ' + farNumber + '\n' +
+        'SUBMITTED BY: ' + formData.EmployeeName + '\n' +
+        'DEPARTMENT: ' + formData.Department + '\n' +
+        'BRANCH: ' + formData.Branch + '\n' +
+        'DATE OF REPORT: ' + formData.DateOfReport + '\n' +
+        'CUSTOMER NAME: ' + formData.CustomerName + '\n' +
+        'ACCOUNT NUMBER(S): ' + formData.AccountNumbers + '\n' +
+        'ACTIVITY TYPE: ' + formData.ActivityType + '\n' +
+        'TRANSACTION AMOUNTS: $' + formData.TransactionAmounts + '\n' +
+        'START DATE: ' + formData.StartDate + '\n' +
+        'END DATE: ' + formData.EndDate + '\n' +
+        'CHANNEL: ' + formData.ChannelLocation + '\n' +
+        'DESCRIPTION: ' + formData.DetailedExplanation
+      );
+      window.location.href = 'mailto:' + CONFIG.fraudEmail + '?subject=' + subject + '&body=' + body;
+      showStatus(
+        '&#9989; <strong>' + farNumber + ' ready!</strong> Your email client has opened with the complete FAR. ' +
+        'Click Send in your email to submit to the Fraud team. ' +
+        'Click <strong>Print / Save as PDF</strong> to save your copy.',
+        'success'
+      );
+      btn.disabled = false;
+      btn.textContent = 'Submit FAR to Fraud Team';
+      return;
+    }
+
+    try {
+      const response = await fetch(CONFIG.flowUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      showStatus(
+        '&#9989; <strong>' + farNumber + ' submitted successfully!</strong><br>' +
+        'The Fraud team has been notified at ' + CONFIG.fraudEmail + '.<br>' +
+        'Please reference <strong>' + farNumber + '</strong> for all follow-up communications.<br>' +
+        '&#128438; Please click <strong>Print / Save as PDF</strong> below to save a copy for your records.',
+        'success'
+      );
+      btn.textContent = 'Submitted &#10003;';
+    } catch (e) {
+      showStatus(
+        '&#10060; Submission failed (' + e.message + '). ' +
+        'Please try again or use Print / Save as PDF and email to ' + CONFIG.fraudEmail,
+        'error'
+      );
+      btn.disabled = false;
+      btn.textContent = 'Submit FAR to Fraud Team';
+    }
+  }
+
+  // ============================================================
+  // NEW FORM
+  // ============================================================
+  function newForm() {
+    if (!confirm('Clear this form and start a new FAR? Make sure you have submitted or saved this one first.')) return;
+
+    var fields = document.querySelectorAll('input:not([readonly]), select, textarea');
+    fields.forEach(function (el) {
+      if (el.tagName === 'SELECT') el.selectedIndex = 0;
+      else el.value = '';
+    });
+
+    // Reset defaults
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementById('dateOfReport').value = today;
+    document.getElementById('detailedExplanation').value = 'Between [start date] and [end date], [customer name] ([CIF/customer ID]) conducted [describe activity] involving account(s) [#] in the amount(s) of [amounts], through [Channel].\n\nThis activity is fraud because [explain variance from expected activity based on profile/history], and include any relevant patterns such as frequency, size, counterparties, or geographic indicators.\n\nA review of systems/reports for the relevant period was completed, including CDD/EDD review, transaction history, account profile, supporting documents, and research.\n\nSummarize any customer contact/outreach and results, if applicable.\n\nBased on the above, this matter is being escalated to the Fraud Team for further review and determination.';
+
+    document.getElementById('farStatus').style.display = 'none';
+    var btn = document.getElementById('farSubmitBtn');
+    btn.disabled = false;
+    btn.textContent = 'Submit FAR to Fraud Team';
+
+    generateFARNumber();
+    document.getElementById('farDateDisplay').textContent = 'Date: ' + new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
