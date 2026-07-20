@@ -565,9 +565,7 @@ Based on the above, this matter is being escalated to the Fraud Team for further
 
   function getCurrencyValue(id) {
     var val = document.getElementById(id).value.replace(/[^0-9.]/g, '');
-    if (!val) return '$0.00';
-    var num = parseFloat(val);
-    return '$' + num.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    return parseFloat(val) || 0;
   }
 
   // ============================================================
