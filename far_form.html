@@ -522,7 +522,7 @@ Based on the above, this matter is being escalated to the Fraud Team for further
   // CONFIGURATION — paste FAR Power Automate HTTP trigger URL
   // ============================================================
   var CONFIG = {
-    flowUrl: "https://default32bb198795b14f40bf2fe10a669793.4c.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/08/workflows/b88141361b6f4425b5f86e15432878a6/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=j4fY7MhsyDH2Le3BPyXObbA4LFIlUCEQYaINP3AMbYY",
+    flowUrl: "https://default32bb198795b14f40bf2fe10a669793.4c.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/30/workflows/16e0132b09d0423390090b372445dbde/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=MjanlT8nvRlv0U-hJyBNraPETKoFDrvrusSkIiD_2Eo",
     fraudEmail: "FraudIncident@carverbank.com"
   };
 
@@ -565,7 +565,9 @@ Based on the above, this matter is being escalated to the Fraud Team for further
 
   function getCurrencyValue(id) {
     var val = document.getElementById(id).value.replace(/[^0-9.]/g, '');
-    return parseFloat(val) || 0;
+    if (!val) return '$0.00';
+    var num = parseFloat(val);
+    return '$' + num.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
   }
 
   // ============================================================
@@ -695,7 +697,7 @@ Based on the above, this matter is being escalated to the Fraud Team for further
     }
 
     try {
-      const response = await fetch(CONFIG.flowUrl, {
+      await fetch(CONFIG.flowUrl, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
